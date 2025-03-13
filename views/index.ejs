@@ -10,5 +10,10 @@
         <input type="text" name="task" id="task" placeholder="Enter Task" required>
         <button type="submit">Add Task</button>
     </form>
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li><%= task.task %></li>
+        <% }); %>
+    </ul>
 </body>
 </html>

@@ -12,12 +12,12 @@ app.use(express.static('public'));
 let tasks = [];
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { tasks: tasks });
 });
 
 app.post('/submit', (req, res) => {
     const task = req.body.task;
-    tasks.push(task);
+    tasks.push({task: task});
   console.log(tasks);
   res.redirect('/');
 });
