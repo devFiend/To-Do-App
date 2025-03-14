@@ -22,6 +22,26 @@ app.post('/submit', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/delete', (req, res) => {
+  tasks = tasks.filter((task, index) => index !== parseInt(req.query.index));
+  res.redirect('/');
+});
+
+app.post('/delete', (req, res) => {
+  tasks = tasks.filter((task, index) => index !== parseInt(req.body.index));
+  res.redirect('/');
+});
+
+app.get('/complete', (req, res) => {
+  tasks[parseInt(req.query.index)].completed = true;
+  res.redirect('/');
+});
+
+app.post('/complete', (req, res) => {
+  tasks[parseInt(req.body.index)].completed = true;
+  res.redirect('/');
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

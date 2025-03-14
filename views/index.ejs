@@ -6,14 +6,32 @@
     <title>To-Do App</title>
 </head>
 <body>
-    <form action="submit" method="post">
-        <input type="text" name="task" id="task" placeholder="Enter Task" required>
-        <button type="submit">Add Task</button>
-    </form>
+    <div class="enter-task">
+        <form action="/submit" method="post">
+            <input type="text" name="task" id="task" placeholder="Enter Task" required>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+    <h2>To-Do List:</h2>
+
+<div class="tasks-list">
     <ul>
         <% tasks.forEach(task => { %>
-            <li><%= task.task %></li>
+            <li style="<%= task.completed ? 'text-decoration: line-through; color: gray;' : '' %>">
+                <%= task.task %>
+
+                <form action="delete" method="post">
+                    <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
+                    <button type="submit">Delete</button>
+                </form>
+                
+                <form action="/complete" method="post">
+                    <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
+                    <button type="submit">Complete</button>
+                </form>
+            </li>
         <% }); %>
     </ul>
+</div>
 </body>
 </html>
