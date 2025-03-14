@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>To-Do App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
-<body>
-    <div class="head-section bg-blue-500 text-white px-4 py-2 rounded-lg  " >
-        <div class="header">
-            <img src="" alt="">
-            <p>Date</p>
-            <button>X</button>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+
+    <!-- Main Container -->
+    <div class="bg-white w-[350px] md:w-[400px] rounded-2xl shadow-xl p-6">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-700">Today</h2>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                <a href="/addTask">Add New</a>
+            </button>
         </div>
 
-        <div class="header2">
-            <div class="day_task">
-                <h5>Today</h5>
-                <p>8 tasks</p>
-            </div>
+        <!-- Task List -->
+        <div class="space-y-4">
+            <% tasks.forEach(task => { %>
+                <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
+                    
+                    <!-- Task Name -->
+                    <p class="<%= task.completed ? 'line-through text-gray-400' : 'text-gray-800' %>">
+                        <%= task.task %>
+                    </p>
 
-            <button>Add New</button>
+                    <!-- Actions -->
+                    <div class="flex space-x-2">
+                        <!-- Complete Button -->
+                        <form action="/complete" method="post">
+                            <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
+                            <button class="text-green-500 hover:text-green-700">
+                                ✅
+                            </button>
+                        </form>
+
+                        <!-- Delete Button -->
+                        <form action="delete" method="post">
+                            <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
+                            <button class="text-red-500 hover:text-red-700">
+                                🗑
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
         </div>
     </div>
-    <h4>Todays Tasks:</h4>
 
-<div class="body-section">
-    <ul>
-        <% tasks.forEach(task => { %>
-            <li style="<%= task.completed ? 'text-decoration: line-through; color: gray;' : '' %>">
-                <%= task.task %>
-
-                <form action="delete" method="post">
-                    <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
-                    <button type="submit">Delete</button>
-                </form>
-                
-                <form action="/complete" method="post">
-                    <input type="hidden" name="index" value="<%= tasks.indexOf(task) %>">
-                    <button type="submit">Complete</button>
-                </form>
-            </li>
-        <% }); %>
-    </ul>
-</div>
 </body>
 </html>
