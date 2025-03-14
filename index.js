@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
   res.render('index', { tasks: tasks });
 });
 
+app.get('/addTask', (req, res) => {
+  res.render('addTask');
+});
+
 app.post('/submit', (req, res) => {
     const task = req.body.task;
     tasks.push({task: task});
